@@ -16,10 +16,33 @@
     ],
     "main": "./extension",
     "contributes": {
-        "commands": [{
-            "command": "extension.fileheader",
-            "title": "fileheader"
-        }]
+        "configuration": {
+            "type": "object",
+            "title": "File header Configuration",
+            "properties": {
+                "fileheader.Author": {
+                    "type": "string",
+                    "default": "mikey.zhaopeng",
+                    "description": "By default, empty lines are cleared as well when calling the deletion command. Set to false to ignore empty lines upon deletion."
+                },
+                "fileheader.tpl": {
+                    "type": "string",
+                    "default": "/*\r\n * @Author: {author} \r\n * @Date: {createTime} \r\n * @Last Modified by:   {lastModifiedBy} \r\n * @Last Modified time: {updateTime} \r\n */\r\n",
+                    "description": "By default, empty lines are cleared as well when calling the deletion command. Set to false to ignore empty lines upon deletion."
+                },
+                "fileheader.LastModifiedBy": {
+                    "type": "string",
+                    "default": "mikey.zhaopeng",
+                    "description": "By default, empty lines are cleared as well when calling the deletion command. Set to false to ignore empty lines upon deletion."
+                }
+            }
+        },
+        "commands": [
+            {
+                "command": "extension.fileheader",
+                "title": "fileheader"
+            }
+        ]
     },
     "scripts": {
         "postinstall": "node ./node_modules/vscode/bin/install"
