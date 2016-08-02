@@ -30,7 +30,6 @@ Date.prototype.format = function (format) {
 
 function activate(context) {
     var config = vscode.workspace.getConfiguration('fileheader');
-    console.info(config);
     console.log('"vscode-fileheader" is now active!');
     var disposable = vscode.commands.registerCommand('extension.fileheader', function () {
         var editor = vscode.editor || vscode.window.activeTextEditor;
@@ -44,7 +43,6 @@ function activate(context) {
             }
             try {
                 var tpl = new template(config.tpl).render(data);;
-                console.info(tpl);
                 editBuilder.insert(new vscode.Position(0, 0), tpl);
             } catch (error) {
                 console.error(error);

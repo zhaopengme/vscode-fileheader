@@ -42,6 +42,13 @@
                 "command": "extension.fileheader",
                 "title": "fileheader"
             }
+        ],
+        "keybindings": [
+            {
+                "command": "extension.fileheader",
+                "key": "ctrl+alt+i",
+                "when": "editorTextFocus"
+            }
         ]
     },
     "scripts": {
