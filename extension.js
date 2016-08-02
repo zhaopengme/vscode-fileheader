@@ -43,9 +43,9 @@ function activate(context) {
                 updateTime: time
             }
             try {
-            var tpl = new template(config.tpl).render(data);;
-            console.info(tpl);
-            editBuilder.insert(new vscode.Position(0, 0), tpl);
+                var tpl = new template(config.tpl).render(data);;
+                console.info(tpl);
+                editBuilder.insert(new vscode.Position(0, 0), tpl);
             } catch (error) {
                 console.error(error);
             }
@@ -62,35 +62,49 @@ function activate(context) {
                 var editor = vscode.editor || vscode.window.activeTextEditor;
                 var document = editor.document;
                 var isReturn = false;
-                var author = ' * @Author: mikey.zhaopeng';
-                var authorLine = -1;
-                var lastTimeLine = -1;
-                var lastTime = ' * @Last Modified time: ';
+                var authorRange = null;
+                var authorText = null;
+                var lastTimeRange = null;
+                var lastTimeText = null;
                 var diff = -1;
-                for (var i = 0; i < 10; i++) {
-                    var line = getLineText(i, editor);
-                    if (line.indexOf('@Author') > -1) {
-                        authorLine = i;
-                    } else if (line.indexOf('@Last\ Modified\ time:') > -1) {
-                        lastTimeLine = i;
-                        var time = line.replace('@Last\ Modified\ time:', '').replace('*', '');
-                        var oldTime = new Date(time);
-                        var curTime = new Date();
-                        diff = (curTime - oldTime) / 1000;
-                        lastTime = lastTime + curTime.format("yyyy-MM-dd hh:mm:ss");
-                        break;
+                var lineCount = document.lineCount;
+                var comment = false;
+                for (var i = 0; i < lineCount; i++) {
+                    var linetAt = document.lineAt(i);
+                    var line = linetAt.text;
+                    line = line.trim();
+                    if (line.startsWith("/*") && !line.endsWith("*/")) {//是否以 /* 开头
+                        comment = true;//表示开始进入注释
+                    } else if (comment) {
+                        if (line.endsWith("*/")) {
+                            comment = false;//结束注释
+                        }
+                        var range = linetAt.range;
+                        if (line.indexOf('@Last\ Modified\ by') > -1) {//表示是修改人
+                            authorRange = range;
+                            authorText=' * @Last Modified by: ' + config.LastModifiedBy;
+                        } else if (line.indexOf('@Last\ Modified\ time') > -1) {//最后修改时间
+                            var time = line.replace('@Last\ Modified\ time:', '').replace('*', '');
+                            var oldTime = new Date(time);
+                            var curTime = new Date();
+                            var diff = (curTime - oldTime) / 1000;
+                            lastTimeRange = range;
+                            lastTimeText=' * @Last Modified time: ' + curTime.format("yyyy-MM-dd hh:mm:ss");
+                        }
+                        if (!comment) {
+                            break;//结束
+                        }
                     }
                 }
-                console.info(diff);
-                if ((authorLine != -1) && (lastTimeLine != -1) && (diff > 20)) {
-
-                    replaceLineText(authorLine, author, editor);
+                if ((authorRange != null) && (lastTimeRange != null) && (diff > 20)) {
                     setTimeout(function () {
-                        replaceLineText(lastTimeLine, lastTime, editor);
+                        editor.edit(function (edit) {
+                            edit.replace(authorRange, authorText);
+                            edit.replace(lastTimeRange, lastTimeText);
+                        });
                         document.save();
                     }, 200);
                 }
-
 
             } catch (error) {
                 console.error(error);
