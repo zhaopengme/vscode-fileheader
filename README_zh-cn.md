@@ -1,6 +1,17 @@
-# vscode-fileheader README
+# vscode-fileheader
 
-This is the README for your extension "vscode-fileheader". After writing up a brief description, we recommend including the following sections.
+给文件头增加注释.
+
+类似如下:
+
+```
+/*
+ * @Author: mikey.zhaopeng
+ * @Date:   2016-07-29 15:57:29
+ * @Last Modified by:   mikey.zhaopeng
+ * @Last Modified time: 2016-07-29 16:43:41
+ */
+```
 
 ## Features
 
@@ -8,7 +19,7 @@ Describe specific features of your extension including screenshots of your exten
 
 For example if there is an image subfolder under your extension project workspace:
 
-\!\[feature X\]\(images/feature-x.png\)
+![Image of Yaktocat](https://octodex.github.com/images/yaktocat.png)
 
 > Tip: Many popular extensions utilize animations. This is an excellent way to show off your extension! We recommend short, focused animations that are easy to follow.
 
