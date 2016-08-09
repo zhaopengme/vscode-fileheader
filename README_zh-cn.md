@@ -1,5 +1,8 @@
 # vscode-fileheader
 
+
+## Features
+
 给文件头增加注释,并支持自动更新文件修改时间.
 
 类似如下:
@@ -8,38 +11,26 @@
 /*
  * @Author: mikey.zhaopeng
  * @Date:   2016-07-29 15:57:29
- * @Last Modified by:   mikey.zhaopeng
- * @Last Modified time: 2016-07-29 16:43:41
+ * @Last Modified by: mikey.zhaopeng
+ * @Last Modified time: 2016-08-09 13:29:41
  */
 ```
 
 
+![fileheader](https://github.com/zhaopengme/vscode-fileheader/raw/master/fileheader.gif)
+
+> Tip: ctrl+alt+i 在可以头部插入注释, ctrl+s 保存文件后,自动更新时间和作者.
 
 
-## Features
+## 设置
 
-Describe specific features of your extension including screenshots of your extension in action. Image paths are relative to this README file.
+在用户设置里面,设置创建者和修改者的名称.
 
-For example if there is an image subfolder under your extension project workspace:
+```
+"fileheader.Author": "tom",
+"fileheader.LastModifiedBy": "jerry"
+```
 
-![Image of Yaktocat](https://octodex.github.com/images/yaktocat.png)
-
-> Tip: Many popular extensions utilize animations. This is an excellent way to show off your extension! We recommend short, focused animations that are easy to follow.
-
-## Requirements
-
-If you have any requirements or dependencies, add a section describing those and how to install and configure them.
-
-## Extension Settings
-
-Include if your extension adds any VS Code settings through the `contributes.configuration` extension point.
-
-For example:
-
-This extension contributes the following settings:
-
-* `myExtension.enable`: enable/disable this extension
-* `myExtension.thing`: set to `blah` to do something
 
 ## Known Issues
 

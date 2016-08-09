@@ -23,17 +23,17 @@
                 "fileheader.Author": {
                     "type": "string",
                     "default": "mikey.zhaopeng",
-                    "description": "By default, empty lines are cleared as well when calling the deletion command. Set to false to ignore empty lines upon deletion."
+                    "description": "By default, create file  username"
                 },
                 "fileheader.tpl": {
                     "type": "string",
                     "default": "/*\r\n * @Author: {author} \r\n * @Date: {createTime} \r\n * @Last Modified by:   {lastModifiedBy} \r\n * @Last Modified time: {updateTime} \r\n */\r\n",
-                    "description": "By default, empty lines are cleared as well when calling the deletion command. Set to false to ignore empty lines upon deletion."
+                    "description": "By default, common template. Do not modify it!!!!!"
                 },
                 "fileheader.LastModifiedBy": {
                     "type": "string",
                     "default": "mikey.zhaopeng",
-                    "description": "By default, empty lines are cleared as well when calling the deletion command. Set to false to ignore empty lines upon deletion."
+                    "description": "By default, update file  username."
                 }
             }
         },
