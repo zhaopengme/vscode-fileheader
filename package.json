@@ -1,9 +1,26 @@
 {
     "name": "vscode-fileheader",
     "displayName": "vscode-fileheader",
-    "description": "",
-    "version": "0.0.1",
+    "description": "insert header comment,and automatically update the time.",
+    "version": "0.0.2",
     "publisher": "mikey",
+    "author": {
+        "name": "mikey.zhaopeng",
+        "url": "http://zhaopeng.me"
+    },
+        "galleryBanner": {
+        "color": "#3B4859",
+        "theme": "dark"
+    },
+        "repository": {
+        "type": "git",
+        "url": "https://github.com/zhaopengme/vscode-fileheader.git"
+    },
+    "bugs": {
+        "url": "https://github.com/zhaopengme/vscode-fileheader/issues",
+        "email": "imzhpe@qq.com"
+    },
+    "icon": "images/icon.png",
     "engines": {
         "vscode": "^1.0.0"
     },
