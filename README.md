@@ -46,3 +46,7 @@ In the User Settings inside, set and modify the creator's name.
 2. Support Save file, automatically update the time
 3. Support the configuration and update the creator's name
 
+## task
+
+ [] 1. add template 
+
