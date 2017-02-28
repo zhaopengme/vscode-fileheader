@@ -1,8 +1,8 @@
 /*
  * @Author: mikey.zhaopeng
  * @Date:   2016-07-29 15:57:29
- * @Last Modified by:   mikey.zhaopeng
- * @Last Modified time: 2016-07-29 16:43:41
+ * @Last Modified by: huangyuan413026@163.com
+ * @Last Modified time: 2017-02-28 17:51:49
  */
 
 var vscode = require('vscode');
@@ -33,6 +33,16 @@ function activate(context) {
     console.log('"vscode-fileheader" is now active!');
     var disposable = vscode.commands.registerCommand('extension.fileheader', function () {
         var editor = vscode.editor || vscode.window.activeTextEditor;
+                                    
+        /*
+        * @Author: huangyuan
+        * @Date: 2017-02-28 17:51:35
+        * @Last Modified by:   huangyuan413026@163.com
+        * @Last Modified time: 2017-02-28 17:51:35
+        * @description: 在当前行插入,而非在首行插入
+        */
+                
+        var line = editor.selection.active.line;
         editor.edit(function (editBuilder) {
             var time = new Date().format("yyyy-MM-dd hh:mm:ss");
             var data = {
@@ -43,7 +53,7 @@ function activate(context) {
             }
             try {
                 var tpl = new template(config.tpl).render(data);;
-                editBuilder.insert(new vscode.Position(0, 0), tpl);
+                editBuilder.insert(new vscode.Position(line, 0), tpl);
             } catch (error) {
                 console.error(error);
             }
@@ -69,6 +79,7 @@ function activate(context) {
                 var comment = false;
                 for (var i = 0; i < lineCount; i++) {
                     var linetAt = document.lineAt(i);
+                    
                     var line = linetAt.text;
                     line = line.trim();
                     if (line.startsWith("/*") && !line.endsWith("*/")) {//是否以 /* 开头
