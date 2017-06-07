@@ -1,8 +1,8 @@
 /*
  * @Author: mikey.zhaopeng
  * @Date:   2016-07-29 15:57:29
- * @Last Modified by: huangyuan413026@163.com
- * @Last Modified time: 2017-02-28 17:51:49
+ * @Last Modified by: trongthanh
+ * @Last Modified time: 2017-06-07T15:19:38+07:00
  */
 
 var vscode = require('vscode');
@@ -33,7 +33,7 @@ function activate(context) {
     console.log('"vscode-fileheader" is now active!');
     var disposable = vscode.commands.registerCommand('extension.fileheader', function () {
         var editor = vscode.editor || vscode.window.activeTextEditor;
-                                    
+
         /*
         * @Author: huangyuan
         * @Date: 2017-02-28 17:51:35
@@ -41,7 +41,7 @@ function activate(context) {
         * @Last Modified time: 2017-02-28 17:51:35
         * @description: 在当前行插入,而非在首行插入
         */
-                
+
         var line = editor.selection.active.line;
         editor.edit(function (editBuilder) {
             var time = new Date().format("yyyy-MM-dd hh:mm:ss");
@@ -52,7 +52,7 @@ function activate(context) {
                 updateTime: time
             }
             try {
-                var tpl = new template(config.tpl).render(data);;
+                var tpl = new template(config.tpl).render(data);
                 editBuilder.insert(new vscode.Position(line, 0), tpl);
             } catch (error) {
                 console.error(error);
@@ -63,13 +63,13 @@ function activate(context) {
     });
 
     context.subscriptions.push(disposable);
-    vscode.workspace.onDidSaveTextDocument(function (file) {
+    vscode.workspace.onDidSaveTextDocument(function (/*file*/) {
         setTimeout(function () {
             try {
-                var f = file;
+                // var f = file;
                 var editor = vscode.editor || vscode.window.activeTextEditor;
                 var document = editor.document;
-                var isReturn = false;
+                // var isReturn = false;
                 var authorRange = null;
                 var authorText = null;
                 var lastTimeRange = null;
@@ -79,9 +79,8 @@ function activate(context) {
                 var comment = false;
                 for (var i = 0; i < lineCount; i++) {
                     var linetAt = document.lineAt(i);
-                    
+
                     var line = linetAt.text;
-                    line = line.trim();
                     if (line.startsWith("/*") && !line.endsWith("*/")) {//是否以 /* 开头
                         comment = true;//表示开始进入注释
                     } else if (comment) {
@@ -89,16 +88,19 @@ function activate(context) {
                             comment = false;//结束注释
                         }
                         var range = linetAt.range;
-                        if (line.indexOf('@Last\ Modified\ by') > -1) {//表示是修改人
+                        if (line.toLowerCase().includes('modified by')) {//表示是修改人
+                            // .*? is non-greedy expansion and will match "...modified by:"
                             authorRange = range;
-                            authorText=' * @Last Modified by: ' + config.LastModifiedBy;
-                        } else if (line.indexOf('@Last\ Modified\ time') > -1) {//最后修改时间
-                            var time = line.replace('@Last\ Modified\ time:', '').replace('*', '');
+                            authorText = line.replace(/(.*?:).*/, `$1 ${config.LastModifiedBy}`);
+                        } else if (line.toLowerCase().includes('modified time')) {//最后修改时间
+                            // .*? is non-greedy expansion and will match "...modified time:"
+                            let time = line.match(/.*?:(.*)/)[1];
                             var oldTime = new Date(time);
                             var curTime = new Date();
-                            var diff = (curTime - oldTime) / 1000;
+                            diff = (curTime - oldTime) / 1000;
                             lastTimeRange = range;
-                            lastTimeText=' * @Last Modified time: ' + curTime.format("yyyy-MM-dd hh:mm:ss");
+                            // keep first part before : and replace the time
+                            lastTimeText= line.replace(/(.*?:).*/, `$1 ${curTime.format("yyyy-MM-dd hh:mm:ss")}`);
                         }
                         if (!comment) {
                             break;//结束
