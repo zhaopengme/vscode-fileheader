@@ -51,7 +51,7 @@
                     * @Last Modified time: 2017-02-28 17:51:56
                     * @Description: 增加Description字段
                     */
-                    "default": "/*\r\n * @Author: {author}\r\n * @Date: {createTime}\r\n * @Last Modified by:   {lastModifiedBy}\r\n * @Last Modified time: {updateTime}\r\n * @Description: Description\r\n */\r\n",
+                    "default": "/*\r\n * @Author: {author}\r\n * @Email: {email}\r\n * @Date: {createTime}\r\n * @Last Modified by:   {lastModifiedBy}\r\n * @Last Modified time: {updateTime}\r\n * @Description: Description\r\n */\r\n",
                     "description": "By default, common template. Do not modify it!!!!!"
                 },
                 "fileheader.LastModifiedBy": {
