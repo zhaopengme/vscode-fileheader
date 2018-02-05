@@ -1,8 +1,8 @@
 /*
  * @Author: mikey.zhaopeng
  * @Date:   2016-07-29 15:57:29
- * @Last Modified by: huangyuan413026@163.com
- * @Last Modified time: 2017-02-28 17:51:49
+ * @Last Modified by: Eastegg
+ * @Last Modified time: 2018-02-5 18:05:49
  */
 
 var vscode = require('vscode');
@@ -47,6 +47,7 @@ function activate(context) {
             var time = new Date().format("yyyy-MM-dd hh:mm:ss");
             var data = {
                 author: config.Author,
+                email: config.Email,
                 lastModifiedBy: config.LastModifiedBy,
                 createTime: time,
                 updateTime: time
