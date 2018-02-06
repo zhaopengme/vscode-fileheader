@@ -9,6 +9,7 @@ eg:
 ```
 /*
  * @Author: mikey.zhaopeng
+ * @Email:  admin@gmial.com
  * @Date:   2016-07-29 15:57:29
  * @Last Modified by: mikey.zhaopeng
  * @Last Modified time: 2016-08-09 13:29:41
@@ -29,6 +30,7 @@ In the User Settings inside, set and modify the creator's name.
 
 ```
 "fileheader.Author": "tom",
+"fileheader.Email": "admin@gmial.com",
 "fileheader.LastModifiedBy": "jerry"
 ```
 
