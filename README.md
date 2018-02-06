@@ -26,7 +26,7 @@ Press `F1`,type`ext install fileheader`.
 
 ## Configuration
 
-In the User Settings inside, set and modify the creator's name.
+In the User Settings inside, set and modify the creator's name & email.
 
 ```
 "fileheader.Author": "tom",
