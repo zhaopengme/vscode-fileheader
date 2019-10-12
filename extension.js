@@ -1,8 +1,8 @@
 /*
  * @Author: mikey.zhaopeng
  * @Date:   2016-07-29 15:57:29
- * @Last Modified by: Eastegg
- * @Last Modified time: 2018-02-5 18:05:49
+ * @Last Modified by: caoweiju
+ * @Last Modified time: 2019-10-12 16:31:37
  */
 
 var vscode = require('vscode');
@@ -81,6 +81,7 @@ function activate(context) {
                 for (var i = 0; i < lineCount; i++) {
                     var linetAt = document.lineAt(i);
                     
+                    var lineTextOriginal = linetAt.text;
                     var line = linetAt.text;
                     line = line.trim();
                     if (line.startsWith("/*") && !line.endsWith("*/")) {//是否以 /* 开头
@@ -91,15 +92,30 @@ function activate(context) {
                         }
                         var range = linetAt.range;
                         if (line.indexOf('@Last\ Modified\ by') > -1) {//表示是修改人
+                            var replaceAuthorReg = /^(.*?)(@Last Modified by:)(\s*)(\S*)$/;
                             authorRange = range;
-                            authorText=' * @Last Modified by: ' + config.LastModifiedBy;
+                            if (replaceAuthorReg.test(lineTextOriginal)) {
+                                authorText = lineTextOriginal.replace(replaceAuthorReg, function(match, p1, p2, p3){
+                                    return p1+p2+p3+config.LastModifiedBy;
+                                });
+                            } else {
+                                authorText=' * @Last Modified by: ' + config.LastModifiedBy;
+                            }
                         } else if (line.indexOf('@Last\ Modified\ time') > -1) {//最后修改时间
                             var time = line.replace('@Last\ Modified\ time:', '').replace('*', '');
                             var oldTime = new Date(time);
                             var curTime = new Date();
                             var diff = (curTime - oldTime) / 1000;
+                            var replaceTimeReg = /^(.*?)(@Last Modified time:)(\s*)(.*)$/;
                             lastTimeRange = range;
-                            lastTimeText=' * @Last Modified time: ' + curTime.format("yyyy-MM-dd hh:mm:ss");
+                            var currTimeFormate = curTime.format("yyyy-MM-dd hh:mm:ss");
+                            if (replaceTimeReg.test(lineTextOriginal)) {
+                                lastTimeText = lineTextOriginal.replace(replaceTimeReg, function(match, p1, p2, p3){
+                                    return p1+p2+p3+currTimeFormate;
+                                });
+                            } else {
+                                lastTimeText=' * @Last Modified time: ' + currTimeFormate;
+                            }
                         }
                         if (!comment) {
                             break;//结束
