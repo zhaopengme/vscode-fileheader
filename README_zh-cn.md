@@ -9,7 +9,8 @@
 ```
 /*
  * @Author: mikey.zhaopeng
- * @Date:   2016-07-29 15:57:29
+ * @Email:  admin@gmail.com
+ * @Date:   2016-07-29 15:57:29
  * @Last Modified by: mikey.zhaopeng
  * @Last Modified time: 2016-08-09 13:29:41
  */
@@ -25,10 +26,11 @@
 
 ## 设置
 
-在用户设置里面,设置创建者和修改者的名称.
+在用户设置里面,设置创建者、Email和修改者的名称.
 
 ```
 "fileheader.Author": "tom",
+"fileheader.Email": "admin@gmail.com",
 "fileheader.LastModifiedBy": "jerry"
 ```
 
@@ -44,5 +46,5 @@
 
 1. 支持快捷键插件头部注释
 2. 支持保存文件的时候,自动更新时间
-3. 支持配置创建者和更新者的名称
+3. 支持配置创建者、Email和更新者的名称
 
