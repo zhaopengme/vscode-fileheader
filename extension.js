@@ -1,8 +1,8 @@
 /*
  * @Author: mikey.zhaopeng
  * @Date:   2016-07-29 15:57:29
- * @Last Modified by: caoweiju
- * @Last Modified time: 2019-10-12 16:31:37
+ * @Last Modified by: wuhao.52
+ * @Last Modified time: 2020-03-25 15:51:51
  */
 
 var vscode = require('vscode');
@@ -37,7 +37,7 @@ function activate(context) {
         /*
         * @Author: huangyuan
         * @Date: 2017-02-28 17:51:35
-        * @Last Modified by:   huangyuan413026@163.com
+        * @Last Modified by: huangyuan413026@163.com
         * @Last Modified time: 2017-02-28 17:51:35
         * @description: 在当前行插入,而非在首行插入
         */
@@ -99,7 +99,7 @@ function activate(context) {
                                     return p1+p2+p3+config.LastModifiedBy;
                                 });
                             } else {
-                                authorText=' * @Last Modified by: ' + config.LastModifiedBy;
+                                authorText=' * @Last Modified by: ' + config.LastModifiedBy.trim();
                             }
                         } else if (line.indexOf('@Last\ Modified\ time') > -1) {//最后修改时间
                             var time = line.replace('@Last\ Modified\ time:', '').replace('*', '');
